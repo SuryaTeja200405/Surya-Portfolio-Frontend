@@ -1,38 +1,37 @@
+// NAVBAR TOGGLE
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
 
-navToggle.onclick = function() {
+navToggle.onclick = function () {
   navLinks.classList.toggle('open');
   navToggle.classList.toggle('open');
-  
-  
-  if (navLinks.classList.contains('open')) {
-    document.body.style.overflow = 'hidden';
-  } else {
-    document.body.style.overflow = '';
-  }
+
+  document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
 };
 
+// CLOSE NAV ON LINK CLICK
 document.querySelectorAll('.nav-links a').forEach(link => {
   link.addEventListener('click', () => {
     navLinks.classList.remove('open');
     navToggle.classList.remove('open');
-    document.body.style.overflow = ''; 
+    document.body.style.overflow = '';
   });
 });
 
-
+// CLOSE NAV ON OUTSIDE CLICK
 document.addEventListener('click', (e) => {
-  if (navLinks.classList.contains('open') && 
-      !navLinks.contains(e.target) && 
-      !navToggle.contains(e.target)) {
+  if (
+    navLinks.classList.contains('open') &&
+    !navLinks.contains(e.target) &&
+    !navToggle.contains(e.target)
+  ) {
     navLinks.classList.remove('open');
     navToggle.classList.remove('open');
     document.body.style.overflow = '';
   }
 });
 
-
+// SMOOTH SCROLLING
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
@@ -46,52 +45,50 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-
+// ANIMATION ON SCROLL
 const animationObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      
       setTimeout(() => {
         entry.target.classList.add('in-view');
       }, 100);
     }
   });
-}, { 
+}, {
   threshold: 0.15,
   rootMargin: '0px 0px -100px 0px'
 });
 
+document.querySelectorAll('.animate-on-scroll, .animate-from-left, .animate-from-right, .animate-from-top, .animate-from-bottom')
+  .forEach(card => animationObserver.observe(card));
 
-document.querySelectorAll('.animate-on-scroll, .animate-from-left, .animate-from-right, .animate-from-top, .animate-from-bottom').forEach(card => {
-  animationObserver.observe(card);
-});
-
-
+// CAROUSEL
 const carouselImgs = document.querySelectorAll('.carousel-img');
 let carouselIndex = 0;
+
 function showCarouselImg(idx) {
   carouselImgs.forEach((img, i) => {
     img.classList.toggle('active', i === idx);
   });
 }
 showCarouselImg(carouselIndex);
-document.getElementById('carousel-prev').onclick = function() {
+
+document.getElementById('carousel-prev').onclick = function () {
   carouselIndex = (carouselIndex - 1 + carouselImgs.length) % carouselImgs.length;
   showCarouselImg(carouselIndex);
 };
-document.getElementById('carousel-next').onclick = function() {
+document.getElementById('carousel-next').onclick = function () {
   carouselIndex = (carouselIndex + 1) % carouselImgs.length;
   showCarouselImg(carouselIndex);
 };
 
-
+// CONTACT FORM SUBMIT
 const form = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
 
 form.addEventListener('submit', async function (e) {
-  e.preventDefault(); 
+  e.preventDefault();
 
-  
   const submitBtn = form.querySelector('button[type="submit"]');
   const originalBtnText = submitBtn.textContent;
   submitBtn.textContent = 'Sending...';
@@ -99,7 +96,6 @@ form.addEventListener('submit', async function (e) {
   formMessage.textContent = '';
   formMessage.className = 'form-message';
 
-  
   const data = {
     name: form.elements['name'].value,
     email: form.elements['email'].value,
@@ -108,7 +104,7 @@ form.addEventListener('submit', async function (e) {
   };
 
   try {
-    const response = await fetch(form.action, {
+    const response = await fetch("https://surya-portfolio-backend.onrender.com/api/contact", {
       method: form.method,
       headers: {
         'Content-Type': 'application/json',
@@ -122,7 +118,7 @@ form.addEventListener('submit', async function (e) {
     if (response.ok && result.success) {
       formMessage.textContent = result.message || "Message sent successfully!";
       formMessage.className = 'form-message success';
-      form.reset(); 
+      form.reset();
     } else {
       formMessage.textContent = result.message || "Oops! Something went wrong.";
       formMessage.className = 'form-message error';
@@ -132,31 +128,14 @@ form.addEventListener('submit', async function (e) {
     formMessage.textContent = "Network error. Please check your connection and try again.";
     formMessage.className = 'form-message error';
   } finally {
-    
     submitBtn.textContent = originalBtnText;
     submitBtn.disabled = false;
   }
 });
 
-
+// CERTIFICATE IMAGE MODAL
 document.querySelectorAll('.cert-img').forEach(img => {
-  img.addEventListener('click', function(e) {
-    e.stopPropagation();
-    const src = this.getAttribute('src');
-    document.getElementById('modal-cert-img').setAttribute('src', src);
-    document.getElementById('cert-modal').classList.add('active');
-  });
-});
-document.getElementById('close-modal').onclick = function() {
-  document.getElementById('cert-modal').classList.remove('active');
-};
-document.getElementById('cert-modal').onclick = function(e) {
-  if (e.target === this) {
-    this.classList.remove('active');
-  }
-};
-document.querySelectorAll('.cert-img').forEach(img => {
-  img.addEventListener('click', function(e) {
+  img.addEventListener('click', function (e) {
     e.stopPropagation();
     const src = this.getAttribute('src');
     document.getElementById('modal-cert-img').setAttribute('src', src);
@@ -164,22 +143,12 @@ document.querySelectorAll('.cert-img').forEach(img => {
   });
 });
 
-document.getElementById('close-modal').onclick = function() {
+document.getElementById('close-modal').onclick = function () {
   document.getElementById('cert-modal').classList.remove('active');
 };
-document.getElementById('cert-modal').onclick = function(e) {
+
+document.getElementById('cert-modal').onclick = function (e) {
   if (e.target === this) {
     this.classList.remove('active');
   }
 };
-
-
-fetch("https://portfolio-backend-ipfk.onrender.com/", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    name: nameInput.value,
-    email: emailInput.value,
-    message: messageInput.value
-  })
-});
