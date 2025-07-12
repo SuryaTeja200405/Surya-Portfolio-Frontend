@@ -172,3 +172,14 @@ document.getElementById('cert-modal').onclick = function(e) {
     this.classList.remove('active');
   }
 };
+
+
+fetch("https://portfolio-backend-ipfk.onrender.com/", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    name: nameInput.value,
+    email: emailInput.value,
+    message: messageInput.value
+  })
+});
