@@ -82,7 +82,7 @@ document.getElementById('carousel-next').onclick = function () {
   showCarouselImg(carouselIndex);
 };
 
-// CONTACT FORM SUBMIT
+// ✅ UPDATED CONTACT FORM SUBMIT
 const form = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
 
@@ -97,15 +97,15 @@ form.addEventListener('submit', async function (e) {
   formMessage.className = 'form-message';
 
   const data = {
-    name: form.elements['name'].value,
-    email: form.elements['email'].value,
-    subject: form.elements['subject'].value,
-    message: form.elements['message'].value
+    name: form.elements['name'].value.trim(),
+    email: form.elements['email'].value.trim(),
+    subject: form.elements['subject'].value.trim(),
+    message: form.elements['message'].value.trim()
   };
 
   try {
-    const response = await fetch("https://surya-portfolio-backend.onrender.com/api/contact", {
-      method: form.method,
+    const response = await fetch('https://surya-portfolio-backend.onrender.com/api/contact', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
