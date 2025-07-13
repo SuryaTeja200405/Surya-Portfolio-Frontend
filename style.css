@@ -16,6 +16,7 @@ body {
   color: var(--text);
   line-height: 1.6;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 html {
@@ -55,6 +56,7 @@ body {
   color: var(--accent, #f7c873);
   letter-spacing: 1px;
   margin-right: 2rem;
+  margin-left: 16px;
 }
 
 .nav-links {
@@ -1340,6 +1342,79 @@ footer {
     font-size: 1.1rem;
     padding: 1.2rem 1rem;
   }
+}
+
+@media (max-width: 600px) {
+  /* Only add padding to main content containers, not navbar/footer */
+  .container, .content, main, section:not(.navbar):not(.footer):not(nav):not(footer) {
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+
+  h1, h2, h3, p, button, .social-icons, .profile-img {
+    text-align: left;
+    margin-left: 0;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .social-icons {
+    justify-content: flex-start;
+    gap: 16px;
+  }
+
+  .profile-img {
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto 24px auto;
+    display: block;
+  }
+
+  /* Navbar and footer: no side padding, full width */
+  nav, .navbar, footer, .footer {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box;
+  }
+}
+
+nav, .navbar {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar li:last-child, .navbar .nav-links li:last-child, nav li:last-child {
+  margin-right: 16px;
+}
+
+footer, .footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.menu-icon {
+  margin-right: 16px; /* Optional: for a little breathing room */
 }
 
 
