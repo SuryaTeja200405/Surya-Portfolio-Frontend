@@ -1386,6 +1386,32 @@ footer {
   }
 }
 
+/* Prevent horizontal scroll */
+body {
+  overflow-x: hidden;
+}
+
+/* Navbar: full width, no negative margins, no 100vw */
+nav, .navbar {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
+  box-sizing: border-box;
+}
+
+/* Main content: add left/right padding for mobile */
+@media (max-width: 600px) {
+  .container, .content, main, section:not(.navbar):not(.footer):not(nav):not(footer) {
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
 nav, .navbar {
   width: 100vw !important;
   max-width: 100vw !important;
