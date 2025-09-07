@@ -1149,6 +1149,10 @@ footer {
 .hackerrank-icon svg:focus polygon {
   fill: #1ba94c;
 }
+.trailhead-icon svg:hover circle,
+.trailhead-icon svg:focus circle {
+  fill: #0070d2;
+}
 .contact-socials a {
   text-decoration: none !important;
   font-size: 1.8rem;  
