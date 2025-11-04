@@ -104,7 +104,7 @@ form.addEventListener('submit', async function (e) {
   };
 
   try {
-    const response = await fetch('https://surya-portfolio-backend.onrender.com', {
+    const response = await fetch('https://surya-portfolio-backend.onrender.com/api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
