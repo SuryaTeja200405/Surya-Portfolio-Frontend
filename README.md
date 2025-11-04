@@ -3,7 +3,7 @@
 Welcome to the **frontend source code** of my personal portfolio!  
 This project showcases my **journey, projects, skills, and personality** in a clean, modern, and responsive way.  
 
-🔗 **Live Site:** [surya-portfolio-frontend.vercel.app](https://surya-portfolio-frontend.vercel.app/)
+🔗 **Live Site:** [surya-portfolio-frontend.vercel.app](https://surya-portfolio-frontend-1gnv.vercel.app/)
 
 ---
 
