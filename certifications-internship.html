@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Internship Certifications | Surya Teja Yellaboyina</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body>
+  <header>
+  <nav class="navbar">
+    <div class="logo"><img src="images/logo.png" class="m-2" style="width:20%" />
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open navigation">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#home"><i class="fa fa-home" style="color: white;"></i> Home </a></li>
+      <li><a href="index.html#certifications"><i class="fa fa-certificate" style="color: white;"></i> Certifications</a></li>
+    </ul>
+  </nav>
+</header>
+
+  <section class="section-other-cert">
+    <h2 class="section-title">Internship Certifications</h2>
+    <div class="certifications-grid">
+      <div class="cert-card animate-from-left delay-1">
+        <img src="images/salesforcevp.jpg" alt="Salesforce Developer Virtual Internship" class="cert-img" data-cert="cert1"/>
+        <div>
+          <h4>Salesforce Developer Virtual Internship</h4>
+          <span class="certification-date">October 2023</span>
+        </div>
+      </div>
+      <div class="cert-card animate-from-top delay-2">
+        <img src="images/salesforcevp2.jpg" alt="Salesforce Administrator Virtual Internship" class="cert-img" data-cert="cert1"/>
+        <div>
+          <h4>Salesforce Administrator Virtual Internship</h4>
+          <span class="certification-date">November 2023</span>
+        </div>
+      </div>
+      <div class="cert-card animate-from-right delay-3">
+        <img src="images/iotvp.png" alt=" IOT Software Analyst" class="cert-img" data-cert="cert1"/>
+        <div>
+          <h4>IOT Software Analyst</h4>
+          <span class="certification-date">July 2025</span>
+        </div>
+      </div>
+      <div class="cert-card animate-from-left delay-4">
+        <img src="images/ciscovi.jpg" alt="Virtual Internship Program in Networking" class="cert-img" data-cert="cert1"/>
+        <div>
+          <h4>Virtual Internship Program in Networking</h4>
+          <span class="certification-date">July 2024</span>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:24px;">
+      <a href="index.html#certifications" class="btn btn-outline">← Back to Certifications</a>
+    </div>
+    
+    <div id="cert-modal" class="modal">
+      <div class="modal-content" id="modal-content">
+        <span class="close-btn" id="close-modal">&times;</span>
+        <img id="modal-cert-img" src="" alt="Certificate" />
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Surya Teja Yellaboyina. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
