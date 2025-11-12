@@ -1,154 +1,183 @@
-// NAVBAR TOGGLE
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
+document.addEventListener('DOMContentLoaded', () => {
+  const body = document.body;
 
-navToggle.onclick = function () {
-  navLinks.classList.toggle('open');
-  navToggle.classList.toggle('open');
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
 
-  document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
-};
+  if (navToggle && navLinks) {
+    navToggle.onclick = function () {
+      navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open');
+      body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+    };
 
-// CLOSE NAV ON LINK CLICK
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    navToggle.classList.remove('open');
-    document.body.style.overflow = '';
-  });
-});
-
-// CLOSE NAV ON OUTSIDE CLICK
-document.addEventListener('click', (e) => {
-  if (
-    navLinks.classList.contains('open') &&
-    !navLinks.contains(e.target) &&
-    !navToggle.contains(e.target)
-  ) {
-    navLinks.classList.remove('open');
-    navToggle.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-});
-
-// SMOOTH SCROLLING
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+        body.style.overflow = '';
       });
-    }
-  });
-});
-
-// ANIMATION ON SCROLL
-const animationObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.classList.add('in-view');
-      }, 100);
-    }
-  });
-}, {
-  threshold: 0.15,
-  rootMargin: '0px 0px -100px 0px'
-});
-
-document.querySelectorAll('.animate-on-scroll, .animate-from-left, .animate-from-right, .animate-from-top, .animate-from-bottom')
-  .forEach(card => animationObserver.observe(card));
-
-// CAROUSEL
-const carouselImgs = document.querySelectorAll('.carousel-img');
-let carouselIndex = 0;
-
-function showCarouselImg(idx) {
-  carouselImgs.forEach((img, i) => {
-    img.classList.toggle('active', i === idx);
-  });
-}
-showCarouselImg(carouselIndex);
-
-document.getElementById('carousel-prev').onclick = function () {
-  carouselIndex = (carouselIndex - 1 + carouselImgs.length) % carouselImgs.length;
-  showCarouselImg(carouselIndex);
-};
-document.getElementById('carousel-next').onclick = function () {
-  carouselIndex = (carouselIndex + 1) % carouselImgs.length;
-  showCarouselImg(carouselIndex);
-};
-
-// ✅ UPDATED CONTACT FORM SUBMIT
-const form = document.getElementById('contactForm');
-const formMessage = document.getElementById('formMessage');
-
-form.addEventListener('submit', async function (e) {
-  e.preventDefault();
-
-  const submitBtn = form.querySelector('button[type="submit"]');
-  const originalBtnText = submitBtn.textContent;
-  submitBtn.textContent = 'Sending...';
-  submitBtn.disabled = true;
-  formMessage.textContent = '';
-  formMessage.className = 'form-message';
-
-  const data = {
-    name: form.elements['name'].value.trim(),
-    email: form.elements['email'].value.trim(),
-    subject: form.elements['subject'].value.trim(),
-    message: form.elements['message'].value.trim()
-  };
-
-  try {
-    const response = await fetch('https://surya-portfolio-backend.onrender.com/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(data)
     });
 
-    const result = await response.json();
-
-    if (response.ok && result.success) {
-      formMessage.textContent = result.message || "Message sent successfully!";
-      formMessage.className = 'form-message success';
-      form.reset();
-    } else {
-      formMessage.textContent = result.message || "Oops! Something went wrong.";
-      formMessage.className = 'form-message error';
-    }
-  } catch (error) {
-    console.error('Form submission error:', error);
-    formMessage.textContent = "Network error. Please check your connection and try again.";
-    formMessage.className = 'form-message error';
-  } finally {
-    submitBtn.textContent = originalBtnText;
-    submitBtn.disabled = false;
+    document.addEventListener('click', (e) => {
+      if (navLinks.classList.contains('open') &&
+        !navLinks.contains(e.target) &&
+        !navToggle.contains(e.target)) {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+        body.style.overflow = '';
+      }
+    });
   }
-});
 
-// CERTIFICATE IMAGE MODAL
-document.querySelectorAll('.cert-img').forEach(img => {
-  img.addEventListener('click', function (e) {
-    e.stopPropagation();
-    const src = this.getAttribute('src');
-    document.getElementById('modal-cert-img').setAttribute('src', src);
-    document.getElementById('cert-modal').classList.add('active');
+  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+  anchorLinks.forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetSelector = this.getAttribute('href');
+      if (!targetSelector || targetSelector === '#') return;
+
+      const target = document.querySelector(targetSelector);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
   });
-});
 
-document.getElementById('close-modal').onclick = function () {
-  document.getElementById('cert-modal').classList.remove('active');
-};
+  if ('IntersectionObserver' in window) {
+    const animationObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('in-view'), 100);
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -100px 0px'
+    });
 
-document.getElementById('cert-modal').onclick = function (e) {
-  if (e.target === this) {
-    this.classList.remove('active');
+    document.querySelectorAll('.animate-on-scroll, .animate-from-left, .animate-from-right, .animate-from-top, .animate-from-bottom')
+      .forEach(card => animationObserver.observe(card));
   }
-};
+
+  const carouselImgs = document.querySelectorAll('.carousel-img');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+  if (carouselImgs.length && prevBtn && nextBtn) {
+    let carouselIndex = 0;
+    const showCarouselImg = (idx) => {
+      carouselImgs.forEach((img, i) => img.classList.toggle('active', i === idx));
+    };
+
+    showCarouselImg(carouselIndex);
+
+    prevBtn.onclick = function () {
+      carouselIndex = (carouselIndex - 1 + carouselImgs.length) % carouselImgs.length;
+      showCarouselImg(carouselIndex);
+    };
+    nextBtn.onclick = function () {
+      carouselIndex = (carouselIndex + 1) % carouselImgs.length;
+      showCarouselImg(carouselIndex);
+    };
+  }
+
+  const form = document.getElementById('contactForm');
+  const formMessage = document.getElementById('formMessage');
+
+  if (form && formMessage) {
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+      formMessage.textContent = '';
+      formMessage.className = 'form-message';
+
+      const data = {
+        name: form.elements['name'].value,
+        email: form.elements['email'].value,
+        subject: form.elements['subject'].value,
+        message: form.elements['message'].value
+      };
+
+      try {
+        const response = await fetch("https://surya-portfolio-backend.onrender.com/api/contact", {
+          method: form.method,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          formMessage.textContent = result.message || "Message sent successfully!";
+          formMessage.className = 'form-message success';
+          form.reset();
+        } else {
+          formMessage.textContent = result.message || "Oops! Something went wrong.";
+          formMessage.className = 'form-message error';
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        formMessage.textContent = "Network error. Please check your connection and try again.";
+        formMessage.className = 'form-message error';
+      } finally {
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+      }
+    });
+  }
+
+  const certImages = document.querySelectorAll('.cert-img');
+  const certModal = document.getElementById('cert-modal');
+  const modalImg = document.getElementById('modal-cert-img');
+  const closeModalBtn = document.getElementById('close-modal');
+
+  if (certImages.length && certModal && modalImg) {
+    const openModal = (src) => {
+      modalImg.setAttribute('src', src);
+      certModal.classList.add('active');
+      body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+      certModal.classList.remove('active');
+      body.style.overflow = '';
+    };
+
+    certImages.forEach(img => {
+      img.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const src = img.getAttribute('src');
+        if (src) {
+          openModal(src);
+        }
+      });
+    });
+
+    if (closeModalBtn) {
+      closeModalBtn.addEventListener('click', closeModal);
+    }
+
+    certModal.addEventListener('click', (e) => {
+      if (e.target === certModal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && certModal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  }
+});
